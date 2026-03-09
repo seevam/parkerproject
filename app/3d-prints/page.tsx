@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PrintProjectsPage() {
   const projects = await prisma.printProject.findMany({
     orderBy: { createdAt: 'desc' },

@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 // Helper function to extract YouTube video ID from URL
 function getYouTubeId(url: string) {
   if (!url) return null;
