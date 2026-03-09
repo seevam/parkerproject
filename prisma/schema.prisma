@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String?
+  xp            Int       @default(0)
+  level         Int       @default(1)
+  subscription  String?   // "pass", "plus", "premium", or null
+  subscriptionExpiry DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orders        Order[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  category    String   // "gadget", "accessory-premade", "accessory-custom"
+  imageUrl    String?
+  stock       Int      @default(0)
+  isCustomizable Boolean @default(false)
+  customizationPrice Float @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  total       Float
+  status      String      @default("pending") // "pending", "processing", "shipped", "delivered"
+  paymentMethod String    // "paypal", "stripe", "alipay", "wechat"
+  paymentStatus String    @default("pending")
+  xpEarned    Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id              String   @id @default(cuid())
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id])
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id])
+  quantity        Int
+  price           Float
+  isCustomized    Boolean  @default(false)
+  customizationDetails String?
+  createdAt       DateTime @default(now())
+}
+
+model GadgetReview {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  videoUrl    String
+  thumbnail   String?
+  gadgetName  String
+  rating      Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PrintProject {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  modelFileUrl String?
+  category    String   // "accessory", "gadget-case", "stand", etc.
+  isPremade   Boolean  @default(false)
+  price       Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  content   String
+  updatedAt DateTime @updatedAt
+}
