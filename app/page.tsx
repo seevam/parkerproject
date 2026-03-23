@@ -1,45 +1,12 @@
 import Link from 'next/link';
 import { FaRocket, FaStar, FaCube, FaTrophy, FaUserShield } from 'react-icons/fa';
+import ChipHero from '../components/ChipHero';
 
 export default function Home() {
   return (
     <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">Welcome to Levelling Labs</h1>
-            <p className="text-xl mb-8 text-blue-100">
-              Your Ultimate Destination for Gadgets & Custom 3D Printed Accessories
-            </p>
-            <p className="text-lg mb-10 text-blue-50 max-w-3xl mx-auto">
-              Discover cutting-edge gadgets and personalize them with our premium 3D printed
-              accessories. Earn XP with every purchase and unlock exclusive benefits as you level up!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/shop"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-              >
-                Start Shopping
-              </Link>
-              <Link
-                href="/subscriptions"
-                className="bg-transparent border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition"
-              >
-                View Subscriptions
-              </Link>
-              <Link
-                href="/admin"
-                className="bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-800 transition flex items-center gap-2 justify-center"
-              >
-                <FaUserShield />
-                Admin Panel
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section — Interactive Chip */}
+      <ChipHero />
 
       {/* Features Section */}
       <section className="py-16 bg-black">

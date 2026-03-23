@@ -24,3 +24,555 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ───────────────────────────────────────────────────────────────────────────
+   CHIP HERO — color tokens
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --chip-bg: #0D0F14;
+  --accent-primary: #0A84FF;
+  --accent-cyan: #00E5FF;
+  --chip-metal: #8A9AB5;
+  --chip-die: #1C2438;
+  --text-primary: #E8EFFF;
+  --text-secondary: #6B7A99;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   CHIP HERO — section & layout
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hero {
+  position: relative;
+  background: var(--chip-bg);
+  overflow: hidden;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+}
+
+.chip-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Background decoration
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.chip-hero__particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  opacity: 0;
+  animation: particle-float linear infinite;
+}
+
+@keyframes particle-float {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  20%  { opacity: 0.6; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-60px) scale(0.5); }
+}
+
+.chip-hero__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 229, 255, 0.015) 3px,
+    rgba(0, 229, 255, 0.015) 4px
+  );
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Left text column
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hero__text {
+  flex: 0 0 380px;
+  max-width: 380px;
+}
+
+.chip-hero__eyebrow {
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+}
+
+.chip-hero__title {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.chip-hero__title-accent {
+  color: var(--accent-primary);
+  text-shadow: 0 0 30px rgba(10,132,255,0.5);
+}
+
+.chip-hero__subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  max-width: 340px;
+}
+
+.chip-hero__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.chip-hero__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.chip-hero__legend-item--active {
+  color: var(--text-primary);
+}
+
+.chip-hero__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--zone-color, var(--accent-primary));
+  box-shadow: 0 0 6px var(--zone-color, var(--accent-primary));
+  flex-shrink: 0;
+  transition: box-shadow 0.2s;
+}
+
+.chip-hero__legend-item--active .chip-hero__legend-dot {
+  animation: dot-pulse 1s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--zone-color); }
+  50%       { box-shadow: 0 0 14px var(--zone-color); }
+}
+
+.chip-hero__ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chip-hero__cta {
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.chip-hero__cta--primary {
+  background: var(--accent-primary);
+  color: #fff;
+}
+
+.chip-hero__cta--primary:hover {
+  background: #0070e0;
+  box-shadow: 0 0 20px rgba(10,132,255,0.5);
+}
+
+.chip-hero__cta--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(138,154,181,0.4);
+}
+
+.chip-hero__cta--secondary:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Chip visual column
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hero__chip-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chip-wrapper {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1;
+  filter: drop-shadow(0 0 40px rgba(10,132,255,0.2));
+}
+
+.chip-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Hotspot overlay
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hotspot-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.chip-hotspot {
+  position: absolute;
+  border-radius: 2px;
+  cursor: none;
+  outline: none;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.chip-hotspot:focus-visible {
+  outline: 1px solid var(--zone-color, var(--accent-cyan));
+  outline-offset: 2px;
+}
+
+/* Custom crosshair cursor */
+body:has(.chip-hotspot:hover) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='2' fill='%2300E5FF'/%3E%3Cline x1='16' y1='4' x2='16' y2='12' stroke='%2300E5FF' stroke-width='1.5'/%3E%3Cline x1='16' y1='20' x2='16' y2='28' stroke='%2300E5FF' stroke-width='1.5'/%3E%3Cline x1='4' y1='16' x2='12' y2='16' stroke='%2300E5FF' stroke-width='1.5'/%3E%3Cline x1='20' y1='16' x2='28' y2='16' stroke='%2300E5FF' stroke-width='1.5'/%3E%3C/svg%3E") 16 16, crosshair;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Zone hint bar
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-hero__zone-bar {
+  font-family: monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  min-height: 1.5rem;
+}
+
+.chip-hero__zone-active-hint {
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chip-hero__zone-idle-hint {
+  color: var(--text-secondary);
+  animation: blink-hint 2.5s ease-in-out infinite;
+}
+
+@keyframes blink-hint {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Tooltip panel
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-tooltip {
+  position: absolute;
+  width: 280px;
+  background: rgba(13, 15, 20, 0.95);
+  border: 1px solid rgba(10, 132, 255, 0.3);
+  border-radius: 6px;
+  z-index: 100;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.chip-tooltip--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chip-tooltip__border-h {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 0;
+  height: 1px;
+  background: var(--zone-color, var(--accent-primary));
+  animation: none;
+}
+
+.chip-tooltip--visible .chip-tooltip__border-h {
+  animation: draw-border-h 0.3s ease-out forwards;
+}
+
+.chip-tooltip__border-v {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 0;
+  background: var(--zone-color, var(--accent-primary));
+}
+
+.chip-tooltip--visible .chip-tooltip__border-v {
+  animation: draw-border-v 0.3s ease-out forwards;
+}
+
+@keyframes draw-border-h {
+  to { width: calc(100% + 2px); }
+}
+
+@keyframes draw-border-v {
+  to { height: calc(100% + 2px); }
+}
+
+.chip-tooltip__inner {
+  padding: 1rem;
+}
+
+.chip-tooltip__tag {
+  font-family: monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.35rem;
+  opacity: 0;
+  animation: none;
+}
+
+.chip-tooltip--visible .chip-tooltip__tag {
+  animation: fade-up 0.2s ease-out 0ms forwards;
+}
+
+.chip-tooltip__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+}
+
+.chip-tooltip--visible .chip-tooltip__name {
+  animation: fade-up 0.2s ease-out 40ms forwards;
+}
+
+.chip-tooltip__divider {
+  border: none;
+  border-top: 1px solid;
+  margin-bottom: 0.6rem;
+  opacity: 0;
+}
+
+.chip-tooltip--visible .chip-tooltip__divider {
+  animation: fade-up 0.2s ease-out 80ms forwards;
+}
+
+.chip-tooltip__desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  opacity: 0;
+}
+
+.chip-tooltip--visible .chip-tooltip__desc {
+  animation: fade-up 0.2s ease-out 120ms forwards;
+}
+
+.chip-tooltip__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  opacity: 0;
+}
+
+.chip-tooltip--visible .chip-tooltip__specs {
+  animation: fade-up 0.2s ease-out 160ms forwards;
+}
+
+.chip-tooltip__spec-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 0.68rem;
+  gap: 0.5rem;
+}
+
+.chip-tooltip__spec-key {
+  color: var(--text-secondary);
+}
+
+.chip-tooltip__spec-val {
+  color: var(--text-primary);
+  text-align: right;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   SVG chip animations
+   ─────────────────────────────────────────────────────────────────────────── */
+.chip-pulse-ring {
+  transform-origin: center;
+  animation: pulse-ring 1.2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { r: 8; opacity: 0.8; }
+  100% { r: 20; opacity: 0; }
+}
+
+.chip-ring {
+  transform-origin: center;
+  animation: ring-pulse 1.2s ease-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%   { opacity: 0.8; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+.chip-ray {
+  animation: ray-fade 0.4s ease-out forwards;
+}
+
+@keyframes ray-fade {
+  0%   { opacity: 0; stroke-dashoffset: 1; }
+  30%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+.chip-particle {
+  animation: particle-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes particle-pulse {
+  from { opacity: 0.3; r: 0.6; }
+  to   { opacity: 1; r: 1.2; }
+}
+
+.chip-scanline {
+  animation: scanline-sweep 1.5s linear infinite;
+}
+
+@keyframes scanline-sweep {
+  0%   { transform: translateY(0); opacity: 0.7; }
+  100% { transform: translateY(25px); opacity: 0; }
+}
+
+.chip-arc {
+  animation: arc-flicker 0.15s step-end infinite;
+}
+
+@keyframes arc-flicker {
+  0%, 60%  { opacity: 0.12; }
+  30%      { opacity: 0.35; }
+  80%      { opacity: 0.06; }
+}
+
+.chip-heatmap-border {
+  animation: heatmap-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes heatmap-pulse {
+  0%, 100% { stroke-opacity: 0.4; stroke-width: 1; }
+  50%      { stroke-opacity: 0.9; stroke-width: 2; }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Reduced motion
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .chip-hero__particle,
+  .chip-pulse-ring,
+  .chip-ring,
+  .chip-ray,
+  .chip-particle,
+  .chip-scanline,
+  .chip-arc,
+  .chip-heatmap-border,
+  .chip-hero__legend-dot,
+  .chip-hero__zone-idle-hint {
+    animation: none;
+  }
+  .chip-tooltip,
+  .chip-tooltip--visible {
+    transition: opacity 0.1s;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Responsive
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .chip-hero__inner {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .chip-hero__text {
+    flex: unset;
+    max-width: 100%;
+  }
+
+  .chip-hero__subtitle {
+    max-width: 100%;
+  }
+
+  .chip-hero__legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .chip-hero__ctas {
+    justify-content: center;
+  }
+
+  .chip-wrapper {
+    max-width: 380px;
+  }
+
+  /* Tooltips below chip on mobile */
+  .chip-tooltip {
+    position: static !important;
+    width: 100%;
+    margin-top: 0.5rem;
+    transform: none !important;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .chip-tooltip--visible {
+    opacity: 1;
+  }
+}
